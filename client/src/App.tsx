@@ -3,7 +3,6 @@ import SignUpPage from "./pages/SignUpPage"
 import Layout from "./layout/Layout"
 import SignInPage from "./pages/SignInPage"
 
-//routes
 function App() {
   return (
     <BrowserRouter>

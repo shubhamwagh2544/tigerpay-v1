@@ -7,7 +7,7 @@ export default function Footer() {
                 </span>
                 <span className="text-white font-bold tracking-tighter flex gap-4">
                     <span>
-                        Privay Policy
+                        Privacy Policy
                     </span>
                     <span>
                         Terms of Service
