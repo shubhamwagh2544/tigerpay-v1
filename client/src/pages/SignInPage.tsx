@@ -1,7 +1,7 @@
-import {useState} from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import BACKEND_URL from "../global.ts";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function SignInPage() {
 
@@ -12,10 +12,7 @@ export default function SignInPage() {
     const [error, setError] = useState("")
     const navigate = useNavigate()
 
-    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-        event.preventDefault()
-        // if successful login
-        // then navigate to profile
+    async function handleSubmit() {
         const response = await axios.post(`${BACKEND_URL}/api/signin`, state, {
             headers: {
                 "Content-Type": "application/json"
@@ -31,7 +28,7 @@ export default function SignInPage() {
     }
 
     function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-        const {name, value} = event.target
+        const { name, value } = event.target
         setState({
             ...state,
             [name]: value
@@ -40,8 +37,8 @@ export default function SignInPage() {
 
     return (
         <div>
-        <div className="container mx-auto flex justify-center items-center h-screen py-10">
-        <div className="w-96">
+            <div className="container mx-auto flex justify-center items-center h-screen py-10">
+                <div className="w-96">
                     <h1 className="text-3xl font-bold text-center">Sign In</h1>
                     <form className="flex flex-col gap-4 mt-4">
                         <input
