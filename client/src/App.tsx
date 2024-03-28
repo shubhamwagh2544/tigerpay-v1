@@ -4,6 +4,7 @@ import Layout from "./layout/Layout"
 import SignInPage from "./pages/SignInPage"
 import HomePage from "./pages/HomePage"
 import ProfilePage from "./pages/ProfilePage"
+import PrivateRoute from "./auth/PrivateRoute"
 
 function App() {
   return (
@@ -21,10 +22,12 @@ function App() {
           path="/signin"
           element={<SignInPage />}
         />
-        <Route
-          path="/profile"
-          element={<Layout><ProfilePage /></Layout>}
-        />
+        <Route element={<PrivateRoute />}>
+          <Route
+            path="/profile"
+            element={<Layout><ProfilePage /></Layout>}
+          />
+        </Route>
       </Routes>
     </BrowserRouter>
   )
