@@ -43,6 +43,13 @@ async function signIn(req: Request, res: Response) {
             message: 'User not found'
         })
     }
+    // check password
+    const userPassword = user.password
+    if (userPassword !== password) {
+        return res.status(401).json({
+            message: 'Invalid credentials'
+        })
+    }
 
     // generate token
     const token = jwt.sign({
@@ -88,9 +95,24 @@ async function updateUser(req: Request, res: Response) {
     })
 }
 
+async function deleteUser(req: Request, res: Response) {
+    const user = await User.findById(req.userId)
+    if (!user) {
+        return res.status(404).json({
+            message: 'User not found'
+        })
+    }
+    await user.deleteOne()
+
+    return res.status(200).json({
+        message: 'User deleted'
+    })
+}
+
 export {
     signUp,
     signIn,
     getUser,
-    updateUser
+    updateUser,
+    deleteUser
 }
