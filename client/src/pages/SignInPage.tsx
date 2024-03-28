@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import BACKEND_URL from "../global.ts";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 export default function SignInPage() {
 
@@ -9,21 +10,27 @@ export default function SignInPage() {
         email: "",
         password: ""
     })
-    const [error, setError] = useState("")
     const navigate = useNavigate()
 
     async function handleSubmit() {
-        const response = await axios.post(`${BACKEND_URL}/api/signin`, state, {
-            headers: {
-                "Content-Type": "application/json"
+        try {
+            const response = await axios.post(`${BACKEND_URL}/api/user/signip`, state, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            if (response.status === 201) {
+                toast.success(`Hola, ${response.data.user.firstname} ${response.data.user.lastname} !`)
+                navigate("/profile")
             }
-        })
-        if (response.data.error) {
-            setError(response.data.error)
         }
-        else {
-            localStorage.setItem("token", response.data.token)
-            navigate('/profile')
+        catch (error: any) {
+            if (error.response.status === 409) {
+                toast.success("Account already exists! Please sign in!")
+            }
+            else {
+                toast.error("Something went wrong!")
+            }
         }
     }
 
@@ -40,7 +47,7 @@ export default function SignInPage() {
             <div className="container mx-auto flex justify-center items-center h-screen py-10">
                 <div className="w-96">
                     <h1 className="text-3xl font-bold text-center">Sign In</h1>
-                    <form className="flex flex-col gap-4 mt-4">
+                    <div className="flex flex-col gap-4 mt-4">
                         <input
                             type="text"
                             name="email"
@@ -62,7 +69,13 @@ export default function SignInPage() {
                         >
                             Sign In
                         </button>
-                    </form>
+                    </div>
+                    <div className="text-center mt-5">
+                        <span className="text-sm">
+                            Don't Have an Account ?
+                            <Link to="/signup" className="text-blue-500"> Sign Up</Link>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>

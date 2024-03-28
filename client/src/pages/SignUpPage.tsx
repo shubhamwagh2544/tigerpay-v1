@@ -43,7 +43,6 @@ export default function SignUpPage({ }: Props) {
             else {
                 toast.error("Something went wrong!")
             }
-            navigate("/signup")
         }
     }
 
