@@ -33,6 +33,30 @@ async function signUp(req: Request, res: Response) {
     })
 }
 
+async function signIn(req: Request, res: Response) {
+    const { email, password } = req.body
+    const user = await User.findOne({
+        email
+    })
+    if (!user) {
+        return res.status(404).json({
+            message: 'User not found'
+        })
+    }
+
+    // generate token
+    const token = jwt.sign({
+        id: user._id,
+        email: user.email
+    }, process.env.JWT_SECRET as string)
+
+    return res.status(200).json({
+        user,
+        token
+    })
+}
+
 export {
-    signUp
+    signUp,
+    signIn
 }
