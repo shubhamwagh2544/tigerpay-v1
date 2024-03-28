@@ -26,7 +26,7 @@ export default function SignInPage() {
             const { token } = response.data
             localStorage.setItem('token', token)
 
-            navigate("/profile")
+            navigate("/dashboard")
         }
         catch (error: any) {
             if (error.response.status === 404) {
@@ -57,6 +57,7 @@ export default function SignInPage() {
                             name="email"
                             placeholder="Email"
                             className="p-3 border border-gray-300 rounded"
+                            required
                             onChange={handleInputChange}
                         />
                         <input
@@ -64,6 +65,7 @@ export default function SignInPage() {
                             name="password"
                             placeholder="Password"
                             className="p-3 border border-gray-300 rounded"
+                            required
                             onChange={handleInputChange}
                         />
                         <button

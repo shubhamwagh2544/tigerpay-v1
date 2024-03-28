@@ -38,7 +38,7 @@ export default function SignUpPage({ }: Props) {
             const {token} = response.data
             localStorage.setItem('token', token)
          
-            navigate("/profile")
+            navigate("/dashboard")
         }
         catch (error: any) {
             if (error.response.status === 409) {
@@ -61,6 +61,7 @@ export default function SignUpPage({ }: Props) {
                             name="firstname"
                             placeholder="Firstname"
                             className="p-3 border border-gray-300 rounded"
+                            required
                             onChange={handleInputChange}
                         />
                         <input
@@ -68,6 +69,7 @@ export default function SignUpPage({ }: Props) {
                             name="lastname"
                             placeholder="Lastname"
                             className="p-3 border border-gray-300 rounded"
+                            required
                             onChange={handleInputChange}
                         />
                         <input
@@ -75,6 +77,7 @@ export default function SignUpPage({ }: Props) {
                             name="email"
                             placeholder="Email"
                             className="p-3 border border-gray-300 rounded"
+                            required
                             onChange={handleInputChange}
                         />
                         <input
@@ -82,6 +85,7 @@ export default function SignUpPage({ }: Props) {
                             name="password"
                             placeholder="Password"
                             className="p-3 border border-gray-300 rounded"
+                            required
                             onChange={handleInputChange}
                         />
                         <button
