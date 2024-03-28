@@ -140,7 +140,7 @@ export default function ProfilePage() {
                                     variant="outline"
                                     className="bg-red-700 text-white py-6 text-md rounded mt-5 hover:bg-red-800 hover:text-white"
                                 >
-                                    Delete Account
+                                    Delete Account ⚠️
                                 </Button>
                             </AlertDialogTrigger>
                             <AlertDialogContent>
