@@ -13,11 +13,20 @@ mongoose.connect(process.env.MONGO as string)
         console.log('Error connecting to MongoDB:', error.message);
     })
 
-app.get('/', (req, res) => {
-    res.send('Hello World');
+// middleware
+app.use(express.json());
+
+
+
+// health check
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        message: 'Health OK!!!'
+    });
 });
 
 
+// server start
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
