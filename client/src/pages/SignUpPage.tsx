@@ -42,10 +42,10 @@ export default function SignUpPage({ }: Props) {
         }
         catch (error: any) {
             if (error.response.status === 409) {
-                toast.success("Account already exists! Please sign in!")
+                toast.success("Account already exists! Please sign in ❌")
             }
             else {
-                toast.error("Something went wrong!")
+                toast.error("Something went wrong ❌")
             }
         }
     }

@@ -30,10 +30,13 @@ export default function SignInPage() {
         }
         catch (error: any) {
             if (error.response.status === 404) {
-                toast.success("Account not found! Please sign up!")
+                toast.success("Account not found! Please sign up ❌")
+            }
+            if (error.response.status === 401) {
+                toast.success("Invalid credentials! Please try again ❌")
             }
             else {
-                toast.error("Something went wrong!")
+                toast.error("Something went wrong ❌")
             }
         }
     }

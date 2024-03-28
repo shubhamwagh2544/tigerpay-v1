@@ -1,7 +1,9 @@
+import { Separator } from "@/components/ui/separator";
 import BACKEND_URL from "@/global";
 import { UserType } from "@/types/UserType";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 export default function ProfilePage() {
@@ -12,6 +14,7 @@ export default function ProfilePage() {
         lastname: "",
         password: ""
     })
+    const navigate = useNavigate()
 
     useEffect(() => {
         async function fetchUser() {
@@ -64,11 +67,30 @@ export default function ProfilePage() {
         }
     }
 
+    async function deleteAccount() {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.delete(`${BACKEND_URL}/api/user/profile`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            if (response.status === 200) {
+                toast.success(`Sayonara!, ${user?.firstname} ${user?.lastname} 💔`)
+                localStorage.clear()
+                navigate("/")
+            }
+        }
+        catch (error: any) {
+            toast.error("Error deleting account!")
+        }
+    }
+
     return (
         <div>
             <div className="container mx-auto flex justify-center items-center py-10 mt-10">
                 <div className="w-96">
-                    <h1 className="text-3xl font-bold text-center">Profile</h1>
+                    <h1 className="text-3xl font-bold text-center text-purple-700 tracking-tighter">{user?.firstname}'s Profile</h1>
                     <div className="flex flex-col gap-4 mt-4">
                         <input
                             type="text"
@@ -96,7 +118,7 @@ export default function ProfilePage() {
                         />
                         <input
                             type="password"
-                            defaultValue={user?.password}
+                            //defaultValue={user?.password}
                             name="password"
                             placeholder="Password"
                             className="p-3 border border-gray-300 rounded"
@@ -104,14 +126,19 @@ export default function ProfilePage() {
                         />
                         <button
                             type="submit"
-                            className="bg-purple-700 text-white p-3 rounded"
+                            className="bg-purple-700 text-white p-3 rounded mb-5 hover:bg-purple-800"
                             onClick={handleSubmit}
                         >
                             Update Profile
                         </button>
-                    </div>
-                    <div>
-                        <span></span>
+                        <Separator />
+                        <button
+                            type="submit"
+                            className="bg-red-700 text-white p-3 rounded mt-5 hover:bg-red-800"
+                            onClick={deleteAccount}
+                        >
+                            Delete Account ⚠️
+                        </button>
                     </div>
                 </div>
             </div>
