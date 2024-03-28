@@ -1,19 +1,18 @@
-import React from "react"
-import Header from "../components/Header"
-import Footer from "../components/Footer"
+// Layout.js
+import React from "react";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 type Props = {
-    children: React.ReactNode
-}
+    children: React.ReactNode;
+};
 
-export default function Layout({children}: Props) {
+export default function Layout({ children }: Props) {
     return (
         <div className="flex flex-col min-h-screen">
             <Header />
-            <div>
-                {children}
-            </div>
-            {/* <Footer /> */}
+            {children}
+            <Footer />
         </div>
-    )
-} 
+    );
+}
