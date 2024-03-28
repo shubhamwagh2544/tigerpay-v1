@@ -34,6 +34,10 @@ export default function SignUpPage({ }: Props) {
             if (response.status === 201) {
                 toast.success(`Hola, ${response.data.user.firstname} ${response.data.user.lastname} !`)
             }
+
+            const {token} = response.data
+            localStorage.setItem('token', token)
+         
             navigate("/profile")
         }
         catch (error: any) {

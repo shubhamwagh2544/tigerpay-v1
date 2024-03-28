@@ -14,19 +14,23 @@ export default function SignInPage() {
 
     async function handleSubmit() {
         try {
-            const response = await axios.post(`${BACKEND_URL}/api/user/signip`, state, {
+            const response = await axios.post(`${BACKEND_URL}/api/user/signin`, state, {
                 headers: {
                     "Content-Type": "application/json"
                 }
             })
-            if (response.status === 201) {
+            if (response.status === 200) {
                 toast.success(`Hola, ${response.data.user.firstname} ${response.data.user.lastname} !`)
-                navigate("/profile")
             }
+            
+            const { token } = response.data
+            localStorage.setItem('token', token)
+
+            navigate("/profile")
         }
         catch (error: any) {
-            if (error.response.status === 409) {
-                toast.success("Account already exists! Please sign in!")
+            if (error.response.status === 404) {
+                toast.success("Account not found! Please sign up!")
             }
             else {
                 toast.error("Something went wrong!")
