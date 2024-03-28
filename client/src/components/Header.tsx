@@ -16,14 +16,14 @@ export default function Header() {
                     to="/"
                     className="text-3xl font-bold tracking-tight text-white"
                 >
-                    TigerPay
+                    TigerPay <span className="text-sm">made with ❤️</span>
                 </Link>
                 {
                     token ? (
                         <div>
                             <div className="flex gap-5">
                                 <button
-                                    className="text-lg font-semibold tracking-tighter bg-purple-700 text-white"
+                                    className="text-lg font-semibold bg-purple-700 text-white"
                                     onClick={() => {
                                         navigate("/profile")
                                     }}
@@ -31,7 +31,7 @@ export default function Header() {
                                     Profile
                                 </button>
                                 <button
-                                    className="text-lg font-semibold tracking-tighter bg-purple-700 text-white"
+                                    className="text-lg font-semibold bg-purple-700 text-white"
                                     onClick={() => {
                                         localStorage.removeItem('token')
                                         navigate("/")
@@ -43,12 +43,20 @@ export default function Header() {
                         </div>
 
                     ) : (
-                        <button
-                            className="text-lg font-semibold tracking-tighter bg-purple-700 text-white"
-                            onClick={handleLogin}
-                        >
-                            Sign In
-                        </button>
+                        <div className="flex gap-5">
+                            <button
+                                className="text-lg font-semibold bg-purple-700 text-white"
+                                onClick={() => navigate("/about")}
+                            >
+                                About
+                            </button>
+                            <button
+                                className="text-lg font-semibold bg-purple-700 text-white"
+                                onClick={handleLogin}
+                            >
+                                Sign In
+                            </button>
+                        </div>
                     )
                 }
             </div>
