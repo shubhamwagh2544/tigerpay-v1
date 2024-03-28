@@ -1,6 +1,8 @@
+import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+import cors from 'cors';
+import userRouter from './routes/userRoute';
 dotenv.config();
 const app = express();
 const PORT = 3000;
@@ -14,8 +16,9 @@ mongoose.connect(process.env.MONGO as string)
     })
 
 // middleware
+app.use(cors());
 app.use(express.json());
-
+app.use('/api/user', userRouter)
 
 
 // health check
