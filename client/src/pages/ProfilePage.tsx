@@ -7,6 +7,11 @@ import { toast } from "sonner";
 export default function ProfilePage() {
 
     const [user, setUser] = useState<UserType>();
+    const [state, setState] = useState({
+        firstname: "",
+        lastname: "",
+        password: ""
+    })
 
     useEffect(() => {
         async function fetchUser() {
@@ -25,6 +30,40 @@ export default function ProfilePage() {
         fetchUser();
     }, [user])
 
+    function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+        const { name, value } = event.target
+        setState({
+            ...state,
+            [name]: value
+        })
+    }
+
+    async function handleSubmit() {
+        let updatedUser: UserType = {
+            _id: user?._id as string,
+            firstname: state.firstname || user?.firstname as string,
+            lastname: state.lastname || user?.lastname as string,
+            password: state.password || user?.password as string,
+            email: user?.email as string
+        }
+
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.put(`${BACKEND_URL}/api/user/profile`, updatedUser, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                }
+            })
+            if (response.status === 200) {
+                toast.success("Profile updated successfully!")
+            }
+        }
+        catch (error: any) {
+            toast.error("Error updating profile!")
+        }
+    }
+
     return (
         <div>
             <div className="container mx-auto flex justify-center items-center py-10 mt-10">
@@ -33,36 +72,40 @@ export default function ProfilePage() {
                     <div className="flex flex-col gap-4 mt-4">
                         <input
                             type="text"
-                            value={user?.firstname}
+                            defaultValue={user?.firstname}
                             name="firstname"
                             placeholder="Firstname"
                             className="p-3 border border-gray-300 rounded"
+                            onChange={handleInputChange}
                         />
                         <input
                             type="text"
-                            value={user?.lastname}
+                            defaultValue={user?.lastname}
                             name="lastname"
                             placeholder="Lastname"
                             className="p-3 border border-gray-300 rounded"
+                            onChange={handleInputChange}
                         />
                         <input
                             type="text"
-                            value={user?.email}
+                            defaultValue={user?.email}
+                            disabled
                             name="email"
                             placeholder="Email"
                             className="p-3 border border-gray-300 rounded"
-
                         />
                         <input
                             type="password"
-                            //value={user?.password}
+                            defaultValue={user?.password}
                             name="password"
                             placeholder="Password"
                             className="p-3 border border-gray-300 rounded"
+                            onChange={handleInputChange}
                         />
                         <button
                             type="submit"
                             className="bg-purple-700 text-white p-3 rounded"
+                            onClick={handleSubmit}
                         >
                             Update Profile
                         </button>
