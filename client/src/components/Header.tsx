@@ -10,16 +10,16 @@ export default function Header() {
     }
 
     return (
-        <div className="border-b-2 border-b-purple-700 py-6">
+        <div className="bg-purple-700 py-6">
             <div className="container mx-auto flex justify-between items-center">
                 <Link
                     to="/"
-                    className="text-3xl font-bold tracking-tight text-purple-700"
+                    className="text-3xl font-bold tracking-tight text-white"
                 >
                     TigerPay
                 </Link>
                 <button
-                    className="text-lg font-semibold tracking-tighter bg-purple-700 text-white rounded-md px-5 py-1"
+                    className="text-lg font-semibold tracking-tighter bg-purple-700 text-white"
                     onClick={handleLogin}
                 >
                     Sign In
