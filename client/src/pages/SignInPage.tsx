@@ -20,9 +20,9 @@ export default function SignInPage() {
                 }
             })
             if (response.status === 200) {
-                toast.success(`Hola, ${response.data.user.firstname} ${response.data.user.lastname} !`)
+                toast.success(`Welcome, ${response.data.user.firstname} ${response.data.user.lastname} 👋`)
             }
-            
+
             const { token } = response.data
             localStorage.setItem('token', token)
 
@@ -50,7 +50,7 @@ export default function SignInPage() {
         <div>
             <div className="container mx-auto flex justify-center items-center h-screen py-10">
                 <div className="w-96">
-                    <h1 className="text-3xl font-bold text-center">Sign In</h1>
+                    <h1 className="text-3xl font-bold text-center text-purple-700">Hola 👋</h1>
                     <div className="flex flex-col gap-4 mt-4">
                         <input
                             type="text"
@@ -70,7 +70,7 @@ export default function SignInPage() {
                         />
                         <button
                             type="submit"
-                            className="bg-purple-700 text-white p-3 rounded"
+                            className="bg-purple-700 text-white p-3 rounded hover:bg-purple-800"
                             onClick={handleSubmit}
                         >
                             Sign In
@@ -79,7 +79,7 @@ export default function SignInPage() {
                     <div className="text-center mt-5">
                         <span className="text-sm">
                             Don't Have an Account ?
-                            <Link to="/signup" className="text-blue-500"> Sign Up</Link>
+                            <Link to="/signup" className="text-purple-700"> Sign Up</Link>
                         </span>
                     </div>
                 </div>
