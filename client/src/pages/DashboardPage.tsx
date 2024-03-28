@@ -1,3 +1,4 @@
+import Balance from "@/components/Balance";
 import BACKEND_URL from "@/global";
 import { UserType } from "@/types/UserType";
 import axios from "axios";
@@ -26,7 +27,7 @@ export default function DashboardPage() {
 
     return (
         <div>
-            Hola, {user?.firstname} {user?.lastname} !
+            <Balance />
         </div>
     );
 }

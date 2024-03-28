@@ -25,6 +25,14 @@ export default function Header() {
                                 <button
                                     className="text-lg font-semibold bg-purple-700 text-white"
                                     onClick={() => {
+                                        navigate("/dashboard")
+                                    }}
+                                >
+                                    Dashboard
+                                </button>
+                                <button
+                                    className="text-lg font-semibold bg-purple-700 text-white"
+                                    onClick={() => {
                                         navigate("/profile")
                                     }}
                                 >

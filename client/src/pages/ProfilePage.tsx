@@ -1,3 +1,5 @@
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import BACKEND_URL from "@/global";
 import { UserType } from "@/types/UserType";
@@ -59,11 +61,11 @@ export default function ProfilePage() {
                 }
             })
             if (response.status === 200) {
-                toast.success("Profile updated successfully!")
+                toast.success("Profile updated successfully ✅")
             }
         }
         catch (error: any) {
-            toast.error("Error updating profile!")
+            toast.error("Error updating profile ❌")
         }
     }
 
@@ -90,7 +92,7 @@ export default function ProfilePage() {
         <div>
             <div className="container mx-auto flex justify-center items-center py-10 mt-10">
                 <div className="w-96">
-                    <h1 className="text-3xl font-bold text-center text-purple-700 tracking-tighter">{user?.firstname}'s Profile</h1>
+                    <h1 className="text-3xl font-bold text-center text-purple-700 tracking-tighter">{user?.firstname}'s Profile 😎</h1>
                     <div className="flex flex-col gap-4 mt-4">
                         <input
                             type="text"
@@ -132,13 +134,34 @@ export default function ProfilePage() {
                             Update Profile
                         </button>
                         <Separator />
-                        <button
-                            type="submit"
-                            className="bg-red-700 text-white p-3 rounded mt-5 hover:bg-red-800"
-                            onClick={deleteAccount}
-                        >
-                            Delete Account ⚠️
-                        </button>
+                        <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    className="bg-red-700 text-white py-6 text-md rounded mt-5 hover:bg-red-800 hover:text-white"
+                                >
+                                    Delete Account
+                                </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                                <AlertDialogHeader>
+                                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                        This action cannot be undone. This will permanently delete your
+                                        account and remove your data from our servers.
+                                    </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                    <AlertDialogAction
+                                        onClick={deleteAccount}
+                                        className="bg-red-700 text-white"
+                                    >
+                                        Continue
+                                    </AlertDialogAction>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog>
                     </div>
                 </div>
             </div>

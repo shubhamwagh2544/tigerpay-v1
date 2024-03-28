@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage"
 import ProfilePage from "./pages/ProfilePage"
 import PrivateRoute from "./auth/PrivateRoute"
 import AboutPage from "./pages/AboutPage"
+import DashboardPage from "./pages/DashboardPage"
 
 function App() {
   return (
@@ -31,6 +32,10 @@ function App() {
           <Route
             path="/profile"
             element={<Layout><ProfilePage /></Layout>}
+          />
+          <Route
+            path="/dashboard"
+            element={<Layout><DashboardPage /></Layout>}
           />
         </Route>
       </Routes>
