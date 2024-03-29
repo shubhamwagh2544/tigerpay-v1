@@ -33,7 +33,7 @@ export default function UpdateProfilePage() {
             setUser(response.data.user)
         }
         fetchUser();
-    }, [user])
+    }, [])
 
     function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
         const { name, value } = event.target

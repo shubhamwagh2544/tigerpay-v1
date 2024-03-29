@@ -25,14 +25,14 @@ export default function Header() {
                     token ? (
                         <div>
                             <div className="flex gap-5">
-                                {/* <button
-                                    className="text-lg font-semibold bg-purple-700 text-white"
+                                <Button
+                                    variant={"outline"}
                                     onClick={() => {
                                         navigate("/dashboard")
                                     }}
                                 >
-                                    Dashboard
-                                </button> */}
+                                    Dashboard Page
+                                </Button>
                                 <AccountDropdown />
                                 <ProfileDropdown />
                                 <Button

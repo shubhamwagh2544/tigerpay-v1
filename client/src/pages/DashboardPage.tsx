@@ -23,7 +23,7 @@ export default function DashboardPage() {
             setUser(response.data.user)
         }
         fetchUser();
-    }, [user])
+    }, [])
 
     return (
         <div>
