@@ -1,4 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
+import AccountDropdown from "./AccountDropdown";
+import ProfileDropdown from "./ProfileDropdown";
+import { Button } from "./ui/button";
 
 export default function Header() {
 
@@ -22,48 +25,42 @@ export default function Header() {
                     token ? (
                         <div>
                             <div className="flex gap-5">
-                                <button
+                                {/* <button
                                     className="text-lg font-semibold bg-purple-700 text-white"
                                     onClick={() => {
                                         navigate("/dashboard")
                                     }}
                                 >
                                     Dashboard
-                                </button>
-                                <button
-                                    className="text-lg font-semibold bg-purple-700 text-white"
-                                    onClick={() => {
-                                        navigate("/profile")
-                                    }}
-                                >
-                                    Profile
-                                </button>
-                                <button
-                                    className="text-lg font-semibold bg-purple-700 text-white"
+                                </button> */}
+                                <AccountDropdown />
+                                <ProfileDropdown />
+                                <Button
+                                    className="bg-red-500"
                                     onClick={() => {
                                         localStorage.removeItem('token')
                                         navigate("/")
                                     }}
                                 >
                                     Sign Out
-                                </button>
+                                </Button>
                             </div>
                         </div>
 
                     ) : (
                         <div className="flex gap-5">
-                            <button
-                                className="text-lg font-semibold bg-purple-700 text-white"
+                            <Button
+                                variant="outline"
                                 onClick={() => navigate("/about")}
                             >
                                 About
-                            </button>
-                            <button
-                                className="text-lg font-semibold bg-purple-700 text-white"
+                            </Button>
+                            <Button
+                                className="bg-green-500"
                                 onClick={handleLogin}
                             >
                                 Sign In
-                            </button>
+                            </Button>
                         </div>
                     )
                 }

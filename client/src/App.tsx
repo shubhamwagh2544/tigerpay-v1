@@ -3,10 +3,16 @@ import SignUpPage from "./pages/SignUpPage"
 import Layout from "./layout/Layout"
 import SignInPage from "./pages/SignInPage"
 import HomePage from "./pages/HomePage"
-import ProfilePage from "./pages/ProfilePage"
+import ProfilePage from "./pages/UpdateProfilePage"
 import PrivateRoute from "./auth/PrivateRoute"
 import AboutPage from "./pages/AboutPage"
 import DashboardPage from "./pages/DashboardPage"
+import AccountsPage from "./pages/CreateAccountPage"
+import CreateAccountPage from "./pages/CreateAccountPage"
+import ViewAccountsPage from "./pages/ViewAccountsPage"
+import UpdateProfilePage from "./pages/UpdateProfilePage"
+import ViewProfilePage from "./pages/ViewProfilePage"
+import DeleteProfilePage from "./pages/DeleteProfilePage"
 
 function App() {
   return (
@@ -36,6 +42,26 @@ function App() {
           <Route
             path="/dashboard"
             element={<Layout><DashboardPage /></Layout>}
+          />
+          <Route
+            path="/update-profile"
+            element={<Layout><UpdateProfilePage /></Layout>}
+          />
+          <Route
+            path="/view-profile"
+            element={<Layout><ViewProfilePage /></Layout>}
+          />
+          <Route
+            path="/delete-profile"
+            element={<Layout><DeleteProfilePage /></Layout>}
+          />
+          <Route
+            path="/create-account"
+            element={<Layout><CreateAccountPage /></Layout>}
+          />
+          <Route
+            path="/view-accounts"
+            element={<Layout><ViewAccountsPage /></Layout>}
           />
         </Route>
       </Routes>

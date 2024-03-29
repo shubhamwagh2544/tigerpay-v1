@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
-export default function ProfilePage() {
+export default function UpdateProfilePage() {
 
     const [user, setUser] = useState<UserType>();
     const [state, setState] = useState({
