@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import User from '../models/user';
+import Account from '../models/account';
 
 async function signUp(req: Request, res: Response) {
     const { firstname, lastname, email, password } = req.body
@@ -102,6 +103,12 @@ async function deleteUser(req: Request, res: Response) {
             message: 'User not found'
         })
     }
+    // delete accounts
+    await Account.deleteMany({
+        userId: user._id
+    })
+
+    // delete user
     await user.deleteOne()
 
     return res.status(200).json({
