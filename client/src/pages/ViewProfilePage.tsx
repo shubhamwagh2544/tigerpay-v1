@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import BACKEND_URL from "@/global";
 import { UserType } from "@/types/UserType";
 import axios from "axios";
@@ -41,17 +42,18 @@ export default function ViewProfilePage() {
                     </span>
                     <CardDescription>{`Hola, ${user?.firstname}`}</CardDescription>
                 </CardHeader>
+                <Separator />
                 <CardContent>
-                    <div>
-                        <div className="flex justify-between m-1">
+                    <div className="mt-10">
+                        <div className="flex justify-between my-2">
                             <span>Email</span>
                             <span>{user?.email}</span>
                         </div>
-                        <div className="flex justify-between m-1">
+                        <div className="flex justify-between my-2">
                             <span>Firstname</span>
                             <span>{user?.firstname}</span>
                         </div>
-                        <div className="flex justify-between mt-1">
+                        <div className="flex justify-between my-2">
                             <span>Lastname</span>
                             <span>{user?.lastname}</span>
                         </div>

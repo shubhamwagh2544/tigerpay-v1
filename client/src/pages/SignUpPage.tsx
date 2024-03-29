@@ -35,7 +35,7 @@ export default function SignUpPage() {
             const { token } = response.data;
             localStorage.setItem('token', token);
 
-            navigate("/dashboard");
+            navigate("/view-profile");
         }
         catch (error: any) {
             if (error.response.status === 409) {
