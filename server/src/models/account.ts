@@ -5,10 +5,21 @@ const accountSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    accountName: {
+        type: String,
+        required: true
+    },
     accountNumber: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        // default: function() {
+        //     let accountNumber = "";
+        //     for (let i = 0; i < 10; i++) {
+        //         accountNumber += Math.floor(Math.random() * 10);
+        //     }
+        //     return accountNumber;
+        // }
     },
     type: {
         type: String,
@@ -39,3 +50,7 @@ const accountSchema = new mongoose.Schema({
     },
     // transactions
 })
+
+const Account = mongoose.model('Account', accountSchema);
+
+export default Account;
