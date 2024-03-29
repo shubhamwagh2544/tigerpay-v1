@@ -16,7 +16,11 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    accounts: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Account'
+    }],
 })
 
 const User = mongoose.model('User', userSchema);
