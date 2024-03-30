@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 import BACKEND_URL from "@/global";
 import axios from "axios";
 import { useState } from "react";
@@ -56,17 +57,18 @@ export default function CreateAccountPage() {
                     <CardTitle>Create Account</CardTitle>
                     <CardDescription>Create a new account for sending or receiving money</CardDescription>
                 </CardHeader>
+                <Separator />
                 <CardContent>
-                    <form>
-                        <div className="grid w-full items-center gap-4">
+                    <form className="mt-5">
+                        <div className="grid w-full items-center gap-4 space-y-3">
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="name">Name</Label>
-                                <Input id="name" placeholder="Name of your account" onChange={onSelectName} />
+                                <Input id="name" placeholder="Name of your account" onChange={onSelectName} className="py-5" />
                             </div>
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="account-type">Account</Label>
                                 <Select onValueChange={onSelectAccountType}>
-                                    <SelectTrigger id="account-type">
+                                    <SelectTrigger className="py-5" id="account-type">
                                         <SelectValue placeholder="Select Account Type" />
                                     </SelectTrigger>
                                     <SelectContent position="popper">
@@ -78,7 +80,7 @@ export default function CreateAccountPage() {
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="currency">Currency</Label>
                                 <Select onValueChange={onSelectCurrency}>
-                                    <SelectTrigger id="currency">
+                                    <SelectTrigger className="py-5" id="currency">
                                         <SelectValue placeholder="Select Currency" />
                                     </SelectTrigger>
                                     <SelectContent position="popper">
@@ -90,9 +92,10 @@ export default function CreateAccountPage() {
                         </div>
                     </form>
                 </CardContent>
+                <Separator />
                 <CardFooter>
                     <Button
-                        className="bg-purple-700 text-white py-5 hover:bg-purple-800"
+                        className="bg-purple-700 text-white py-5 hover:bg-purple-800 mt-5"
                         onClick={handleCreateAccount}
                     >
                         Create Account

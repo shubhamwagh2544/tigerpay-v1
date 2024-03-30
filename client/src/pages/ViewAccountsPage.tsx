@@ -9,7 +9,6 @@ import { toast } from "sonner";
 
 export default function ViewAccountsPage() {
     const [user, setUser] = useState<UserType>();
-    //const [accounts, setAccounts] = useState<AccountType[]>([]);
 
     useEffect(() => {
         async function fetchUser() {
@@ -28,27 +27,7 @@ export default function ViewAccountsPage() {
         fetchUser();
     }, [])
 
-    // useEffect(() => {
-    //     async function fetchUserAccounts() {
-    //         const token = localStorage.getItem('token');
-    //         if (!token) {
-    //             toast.error("Please sign in to view accounts 🚫")
-    //             return;
-    //         }
-    //         const response = await axios.get(`${BACKEND_URL}/api/account/${user?._id}`, {
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`
-    //             }
-    //         })
-    //         setAccounts(response.data.accounts)
-    //     }
-    //     fetchUserAccounts();
-    // }, [])
-
     if (!user) {
-        setTimeout(() => {
-            toast.error("Please sign in to view accounts 🚫")
-        }, 2000)
         return (
             <div className="flex items-center justify-center mt-10">
                 <div className="flex items-center space-x-4">
@@ -61,9 +40,7 @@ export default function ViewAccountsPage() {
             </div>
         )
     }
-    // if (!accounts || accounts?.length === 0) {
-    //     return <span>Loading Accounts...or try creating one</span>
-    // }
+    
     if (!user.accounts || user.accounts?.length === 0) {
         setTimeout(() => {
             toast.error("No accounts found! Create one 🚫")
