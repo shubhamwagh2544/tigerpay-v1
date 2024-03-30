@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
 export default function AboutPage() {
@@ -30,12 +31,19 @@ export default function AboutPage() {
                             Shubham Here 👋
                         </a>
                     </p>
-                    <button
+                    {/* <button
                         className="bg-purple-700 text-white p-3 rounded font-semibold tracking-tighter hover:bg-purple-800"
                         onClick={() => navigate("/")}
                     >
                         Go To HomePage
-                    </button>
+                    </button> */}
+                    <Button
+                        variant="default"
+                        className="py-5 hover:bg-purple-700"
+                        onClick={() => navigate("/")}
+                    >
+                        Go To HomePage
+                    </Button>
                 </div>
             </div>
         </div>

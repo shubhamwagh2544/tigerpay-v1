@@ -1,12 +1,11 @@
-import AccountInfo from "@/components/AccountInfo";
 import BACKEND_URL from "@/global";
+import { AccountType } from "@/types/AccountType";
 import { UserType } from "@/types/UserType";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-
-export default function ViewAccountsPage() {
+export default function ManageAccountPage() {
     const [user, setUser] = useState<UserType>();
     //const [accounts, setAccounts] = useState<AccountType[]>([]);
 
@@ -47,18 +46,15 @@ export default function ViewAccountsPage() {
     if (!user) {
         return <span>Loading...</span>
     }
-    // if (!accounts || accounts?.length === 0) {
-    //     return <span>Loading Accounts...or try creating one</span>
-    // }
     if (!user.accounts || user.accounts?.length === 0) {
         return <span>Loading Accounts...or try creating one</span>
     }
-
+    // if (!accounts || accounts?.length === 0) {
+    //     return <span>Loading Accounts...or try creating one</span>
+    // }
     return (
-        <div className="flex flex-wrap gap-20 mx-10 my-10 items-center justify-center">
-            {user.accounts.map(account => (
-                <AccountInfo key={account._id} account={account} user={user} />
-            ))}
+        <div>
+            Hola
         </div>
-    );
+    )
 }

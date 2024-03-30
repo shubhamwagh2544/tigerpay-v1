@@ -11,6 +11,7 @@ import SignUpPage from "./pages/SignUpPage"
 import { default as ProfilePage, default as UpdateProfilePage } from "./pages/UpdateProfilePage"
 import ViewAccountsPage from "./pages/ViewAccountsPage"
 import ViewProfilePage from "./pages/ViewProfilePage"
+import ManageAccountPage from "./pages/ManageAccountsPage"
 
 function App() {
   return (
@@ -60,6 +61,10 @@ function App() {
           <Route
             path="/view-accounts"
             element={<Layout><ViewAccountsPage /></Layout>}
+          />
+          <Route
+            path="/manage-account"
+            element={<Layout><ManageAccountPage /></Layout>}
           />
         </Route>
       </Routes>
