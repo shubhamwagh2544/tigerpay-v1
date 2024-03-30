@@ -4,6 +4,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import BACKEND_URL from "@/global";
 import { AccountType } from "@/types/AccountType";
@@ -73,10 +74,44 @@ export default function ManageAccountPage() {
     }, [id])
 
     if (!user) {
-        return <span>Loading...</span>
+        return (
+            <div className="flex items-center justify-center mt-10">
+                <div className="flex items-center space-x-4">
+                    <Skeleton className="h-12 w-12 rounded-full" />
+                    <div className="space-y-2">
+                        <Skeleton className="h-4 w-[250px]" />
+                        <Skeleton className="h-4 w-[200px]" />
+                    </div>
+                </div>
+            </div>
+        )
     }
     if (!user.accounts || user.accounts?.length === 0) {
-        return <span>Loading Accounts...or try creating one</span>
+        return (
+            <div className="flex items-center justify-center mt-20 gap-10">
+                <div className="flex flex-col space-y-3">
+                    <Skeleton className="h-[200px] w-[400px] rounded-xl" />
+                    <div className="space-y-2">
+                        <Skeleton className="h-4 w-[250px]" />
+                        <Skeleton className="h-4 w-[200px]" />
+                    </div>
+                </div>
+                <div className="flex flex-col space-y-3">
+                    <Skeleton className="h-[200px] w-[400px] rounded-xl" />
+                    <div className="space-y-2">
+                        <Skeleton className="h-4 w-[250px]" />
+                        <Skeleton className="h-4 w-[200px]" />
+                    </div>
+                </div>
+                <div className="flex flex-col space-y-3">
+                    <Skeleton className="h-[200px] w-[400px] rounded-xl" />
+                    <div className="space-y-2">
+                        <Skeleton className="h-4 w-[250px]" />
+                        <Skeleton className="h-4 w-[200px]" />
+                    </div>
+                </div>
+            </div>
+        )
     }
 
     async function updateAccount() {
