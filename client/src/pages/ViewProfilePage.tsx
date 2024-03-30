@@ -30,6 +30,14 @@ export default function ViewProfilePage() {
         fetchUser();
     }, [])
 
+    function getTotalBalance() {
+        let total = 0;
+        user?.accounts?.forEach(account => {
+            total += account.balance
+        })
+        return total
+    }
+
     if (!user) {
         return (
             <div className="flex items-center justify-center mt-10">
@@ -80,6 +88,10 @@ export default function ViewProfilePage() {
                         <div className="flex justify-between my-2 mt-5">
                             <span>Total Accounts</span>
                             <span>{user?.accounts?.length || 0}</span>
+                        </div>
+                        <div className="flex justify-between my-2">
+                            <span>Total Balance</span>
+                            <span>{getTotalBalance()}</span>
                         </div>
                         <div className="flex justify-between my-2">
                             <span>Total Transactions</span>

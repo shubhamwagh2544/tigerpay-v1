@@ -1,4 +1,3 @@
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -8,6 +7,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 
 export default function UpdateProfilePage() {
 
@@ -104,82 +105,56 @@ export default function UpdateProfilePage() {
     }
 
     return (
-        <div>
-            <div className="container mx-auto flex justify-center items-center py-10 mt-10">
-                <div className="w-96">
-                    <h1 className="text-3xl font-bold text-center text-purple-700 tracking-tighter">{user?.firstname}'s Profile 😎</h1>
-                    <div className="flex flex-col gap-4 mt-4">
-                        <input
+        <div className="flex items-center justify-center mt-10">
+            <Card className="w-[700px]">
+                <CardHeader className="text-center">
+                    <CardTitle className="text-2xl">{`${user.firstname}'s Profile 😎`}</CardTitle>
+                    <CardDescription>{`Profile Details`}</CardDescription>
+                </CardHeader>
+                <Separator />
+                <CardContent>
+                    <div className="w-[500px] mx-auto space-y-5 mt-10 mb-5">
+                        <Input
+                            className="py-5"
                             type="text"
-                            defaultValue={user?.firstname}
-                            name="firstname"
                             placeholder="Firstname"
-                            className="p-3 border border-gray-300 rounded"
+                            defaultValue={user.firstname}
                             onChange={handleInputChange}
                         />
-                        <input
+                        <Input
+                            className="py-5"
                             type="text"
-                            defaultValue={user?.lastname}
-                            name="lastname"
                             placeholder="Lastname"
-                            className="p-3 border border-gray-300 rounded"
+                            defaultValue={user.lastname}
                             onChange={handleInputChange}
                         />
-                        <input
-                            type="text"
-                            defaultValue={user?.email}
-                            disabled
-                            name="email"
+                        <Input
+                            className="py-5"
+                            type="email"
                             placeholder="Email"
-                            className="p-3 border border-gray-300 rounded"
-                        />
-                        <input
-                            type="password"
-                            //defaultValue={user?.password}
-                            name="password"
-                            placeholder="Password"
-                            className="p-3 border border-gray-300 rounded"
+                            defaultValue={user.email}
                             onChange={handleInputChange}
                         />
-                        <button
-                            type="submit"
-                            className="bg-purple-700 text-white p-3 rounded mb-5 hover:bg-purple-800"
+                        <Input
+                            className="py-5"
+                            type="password"
+                            placeholder="Password"
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                </CardContent>
+                <Separator />
+                <CardFooter>
+                    <div className="flex items-center justify-center w-[700px] mt-7">
+                        <Button
                             onClick={handleSubmit}
+                            className="bg-purple-700 hover:bg-purple-800 py-5 w-[200px]"
                         >
                             Update Profile
-                        </button>
-                        <Separator />
-                        <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                                <Button
-                                    variant="outline"
-                                    className="bg-red-700 text-white py-6 text-md rounded mt-5 hover:bg-red-800 hover:text-white"
-                                >
-                                    Delete Account ⚠️
-                                </Button>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                                <AlertDialogHeader>
-                                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                                    <AlertDialogDescription>
-                                        This action cannot be undone. This will permanently delete your
-                                        account and remove your data from our servers.
-                                    </AlertDialogDescription>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                    <AlertDialogAction
-                                        onClick={deleteAccount}
-                                        className="bg-red-700 text-white"
-                                    >
-                                        Continue
-                                    </AlertDialogAction>
-                                </AlertDialogFooter>
-                            </AlertDialogContent>
-                        </AlertDialog>
+                        </Button>
                     </div>
-                </div>
-            </div>
+                </CardFooter>
+            </Card>
         </div>
     );
 }

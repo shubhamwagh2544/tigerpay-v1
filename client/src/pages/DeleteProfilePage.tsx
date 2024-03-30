@@ -8,6 +8,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { Separator } from "@/components/ui/separator";
 
 export default function DeleteProfilePage() {
 
@@ -63,22 +65,43 @@ export default function DeleteProfilePage() {
                     <CardDescription>Are you sure to delete all your data from our servers...</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    {/** card content */}
                     <div>
                         <div className="flex items-center space-x-2">
-                            <Checkbox id="terms" onCheckedChange={() => setCheckbox(true)} />
+                            <Checkbox id="terms" onCheckedChange={() => setCheckbox(!checkbox)} />
                             <Label htmlFor="terms">Accept terms and conditions</Label>
                         </div>
                     </div>
                 </CardContent>
+                <Separator />
                 <CardFooter>
-                    <Button
-                        variant={"destructive"}
-                        className="py-5 hover:bg-red-800"
-                        onClick={deleteAccount}
-                    >
-                        Delete Account
-                    </Button>
+                    <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                            <Button
+                                variant="destructive"
+                                className="hover:bg-red-700 py-5 mt-5"
+                            >
+                                Delete Account ⚠️
+                            </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                            <AlertDialogHeader>
+                                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                    This action cannot be undone. This will permanently delete your
+                                    account and remove your data from our servers.
+                                </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogAction
+                                    onClick={deleteAccount}
+                                    className="bg-red-700 text-white hover:bg-red-800"
+                                >
+                                    Continue
+                                </AlertDialogAction>
+                            </AlertDialogFooter>
+                        </AlertDialogContent>
+                    </AlertDialog>
                 </CardFooter>
             </Card>
         </div>
