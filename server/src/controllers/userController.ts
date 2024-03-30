@@ -65,12 +65,15 @@ async function signIn(req: Request, res: Response) {
 }
 
 async function getUser(req: Request, res: Response) {
-    const user = await User.findById(req.userId)
+    const user = await User.findById(req.userId).populate('accounts')
     if (!user) {
         return res.status(404).json({
             message: 'User not found'
         })
     }
+
+    // populate accounts
+
     return res.status(200).json({
         user: user.toObject()
     })

@@ -42,6 +42,16 @@ async function createAccount(req: Request, res: Response) {
     }
 }
 
+async function getUserAccounts(req: Request, res: Response) {
+    const userId = req.userId
+    const accounts = await Account.find({ userId })
+
+    return res.status(200).json({
+        accounts
+    })
+}
+
 export {
-    createAccount
+    createAccount,
+    getUserAccounts
 }
