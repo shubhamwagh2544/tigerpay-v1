@@ -1,6 +1,7 @@
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
 import BACKEND_URL from "@/global";
 import { UserType } from "@/types/UserType";
 import axios from "axios";
@@ -86,6 +87,20 @@ export default function UpdateProfilePage() {
         catch (error: any) {
             toast.error("Error deleting account!")
         }
+    }
+
+    if (!user) {
+        return (
+            <div className="flex items-center justify-center mt-10">
+                <div className="flex items-center space-x-4">
+                    <Skeleton className="h-12 w-12 rounded-full" />
+                    <div className="space-y-2">
+                        <Skeleton className="h-4 w-[250px]" />
+                        <Skeleton className="h-4 w-[200px]" />
+                    </div>
+                </div>
+            </div>
+        )
     }
 
     return (

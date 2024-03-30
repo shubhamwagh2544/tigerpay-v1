@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
 import BACKEND_URL from "@/global";
 import { UserType } from "@/types/UserType";
 import axios from "axios";
@@ -29,6 +30,20 @@ export default function ViewProfilePage() {
         fetchUser();
     }, [])
 
+    if (!user) {
+        return (
+            <div className="flex items-center justify-center mt-10">
+                <div className="flex items-center space-x-4">
+                    <Skeleton className="h-12 w-12 rounded-full" />
+                    <div className="space-y-2">
+                        <Skeleton className="h-4 w-[250px]" />
+                        <Skeleton className="h-4 w-[200px]" />
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className="container flex gap-10 flex-row py-20 items-center justify-center">
             <Card className="w-[700px]">
@@ -44,7 +59,7 @@ export default function ViewProfilePage() {
                 </CardHeader>
                 <Separator />
                 <CardContent>
-                    <div className="mt-10">
+                    <div className="mt-5">
                         <div className="flex justify-between my-2">
                             <span>Firstname</span>
                             <span>{user?.firstname}</span>
@@ -53,11 +68,15 @@ export default function ViewProfilePage() {
                             <span>Lastname</span>
                             <span>{user?.lastname}</span>
                         </div>
-                        <div className="flex justify-between my-2 mb-5">
+                        <div className="flex justify-between my-2 mb-0">
                             <span>Email</span>
                             <span>{user?.email}</span>
                         </div>
-                        <Separator />
+                    </div>
+                </CardContent>
+                <Separator />
+                <CardFooter>
+                    <div className="w-[700px]">
                         <div className="flex justify-between my-2 mt-5">
                             <span>Total Accounts</span>
                             <span>{user?.accounts?.length || 0}</span>
@@ -67,9 +86,6 @@ export default function ViewProfilePage() {
                             <span>{0}</span>
                         </div>
                     </div>
-                </CardContent>
-                <CardFooter>
-                    {/** card footer */}
                 </CardFooter>
             </Card>
         </div >
