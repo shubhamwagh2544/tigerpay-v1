@@ -31,12 +31,6 @@ export default function AboutPage() {
                             Shubham Here 👋
                         </a>
                     </p>
-                    {/* <button
-                        className="bg-purple-700 text-white p-3 rounded font-semibold tracking-tighter hover:bg-purple-800"
-                        onClick={() => navigate("/")}
-                    >
-                        Go To HomePage
-                    </button> */}
                     <Button
                         variant="default"
                         className="py-5 hover:bg-purple-700"

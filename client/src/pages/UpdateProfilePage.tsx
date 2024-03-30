@@ -1,14 +1,13 @@
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import BACKEND_URL from "@/global";
 import { UserType } from "@/types/UserType";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 
 export default function UpdateProfilePage() {
 
@@ -18,7 +17,6 @@ export default function UpdateProfilePage() {
         lastname: "",
         password: ""
     })
-    const navigate = useNavigate()
 
     useEffect(() => {
         async function fetchUser() {
@@ -68,25 +66,6 @@ export default function UpdateProfilePage() {
         }
         catch (error: any) {
             toast.error("Error updating profile ❌")
-        }
-    }
-
-    async function deleteAccount() {
-        try {
-            const token = localStorage.getItem('token');
-            const response = await axios.delete(`${BACKEND_URL}/api/user/profile`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            if (response.status === 200) {
-                toast.success(`Sayonara!, ${user?.firstname} ${user?.lastname} 💔`)
-                localStorage.clear()
-                navigate("/")
-            }
-        }
-        catch (error: any) {
-            toast.error("Error deleting account!")
         }
     }
 

@@ -6,12 +6,12 @@ import CreateAccountPage from "./pages/CreateAccountPage"
 import DashboardPage from "./pages/DashboardPage"
 import DeleteProfilePage from "./pages/DeleteProfilePage"
 import HomePage from "./pages/HomePage"
+import ManageAccountPage from "./pages/ManageAccountsPage"
 import SignInPage from "./pages/SignInPage"
 import SignUpPage from "./pages/SignUpPage"
 import { default as ProfilePage, default as UpdateProfilePage } from "./pages/UpdateProfilePage"
 import ViewAccountsPage from "./pages/ViewAccountsPage"
 import ViewProfilePage from "./pages/ViewProfilePage"
-import ManageAccountPage from "./pages/ManageAccountsPage"
 
 function App() {
   return (

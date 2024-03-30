@@ -67,11 +67,6 @@ export default function AccountInfo({ user, account }: Props) {
             </CardContent>
             <Separator />
             <CardFooter className="flex items-center justify-between mt-5">
-                {/* <Button
-                    variant="secondary"
-                >
-                    Report Query
-                </Button> */}
                 <AlertDialog>
                     <AlertDialogTrigger asChild>
                         <Button
@@ -107,6 +102,7 @@ export default function AccountInfo({ user, account }: Props) {
                 </AlertDialog>
                 <Button
                     onClick={() => navigate(`/manage-account/${account._id}`)}
+                    className="bg-purple-700 hover:bg-purple-800"
                 >
                     Manage Account
                 </Button>

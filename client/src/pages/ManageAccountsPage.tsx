@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import BACKEND_URL from "@/global";
 import { AccountType } from "@/types/AccountType";
@@ -11,7 +12,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
-import { Checkbox } from "@/components/ui/checkbox";
 
 export default function ManageAccountPage() {
     const [user, setUser] = useState<UserType>();
@@ -109,7 +109,6 @@ export default function ManageAccountPage() {
         }
     }
     async function deleteAccount() {
-        // delete account
         if (!checkbox) {
             toast.error("Please accept terms and conditions 🚫")
             return;
@@ -123,7 +122,6 @@ export default function ManageAccountPage() {
             })
             if (response.status === 200) {
                 toast.success(`Account deleted successfully 🎉`)
-                // redirect to view accounts
                 navigate('/view-accounts')
             }
         }
@@ -133,11 +131,8 @@ export default function ManageAccountPage() {
     }
     function checkIfAccountHasBalance() {
         return account?.balance !== 0
-        //return true
     }
-    // if (!accounts || accounts?.length === 0) {
-    //     return <span>Loading Accounts...or try creating one</span>
-    // }
+
     return (
         <div className="flex items-center justify-center my-10">
             <Tabs defaultValue="update-account" className="min-w-[700px]">

@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import BACKEND_URL from "../global";
 import { toast } from "sonner";
+import BACKEND_URL from "../global";
 
 export default function SignUpPage() {
     const [state, setState] = useState({
