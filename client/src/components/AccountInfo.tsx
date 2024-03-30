@@ -1,12 +1,13 @@
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { AccountType } from "@/types/AccountType";
 import { UserType } from "@/types/UserType";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
-import { Separator } from "./ui/separator";
-import { Button } from "./ui/button";
-import { Textarea } from "./ui/textarea";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { Button } from "./ui/button";
+import { Separator } from "./ui/separator";
+import { Textarea } from "./ui/textarea";
 
 type Props = {
     account: AccountType
@@ -17,6 +18,7 @@ export default function AccountInfo({ user, account }: Props) {
 
     const creationDate = new Date(account.createdAt).toDateString()
     const [query, setQuery] = useState<string>('')
+    const navigate = useNavigate()
 
     function submitQuery(query: string) {
         if (!query) {
@@ -103,7 +105,9 @@ export default function AccountInfo({ user, account }: Props) {
                         </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialog>
-                <Button>
+                <Button
+                    onClick={() => navigate(`/manage-account/${account._id}`)}
+                >
                     Manage Account
                 </Button>
             </CardFooter>

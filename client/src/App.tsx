@@ -63,7 +63,7 @@ function App() {
             element={<Layout><ViewAccountsPage /></Layout>}
           />
           <Route
-            path="/manage-account"
+            path="/manage-account/:id"
             element={<Layout><ManageAccountPage /></Layout>}
           />
         </Route>
