@@ -96,6 +96,21 @@ async function updateAccount(req: Request, res: Response) {
 async function deleteAccount(req: Request, res: Response) {
     const userId = req.userId
     const accountId = req.params.accountId
+
+    const account = await Account.findOneAndDelete({
+        _id: accountId,
+        userId
+    })
+
+    if (!account) {
+        return res.status(404).json({
+            message: 'Account not found'
+        })
+    }
+
+    return res.status(200).json({
+        message: 'Account deleted'
+    })
 }
 
 export {
