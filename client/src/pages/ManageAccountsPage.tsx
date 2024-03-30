@@ -9,7 +9,7 @@ import { AccountType } from "@/types/AccountType";
 import { UserType } from "@/types/UserType";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -24,6 +24,7 @@ export default function ManageAccountPage() {
     const [currency, setCurrency] = useState<string>('')
 
     const [checkbox, setCheckbox] = useState(false)
+    const navigate = useNavigate()
 
     function onSelectName(event: React.ChangeEvent<HTMLInputElement>) {
         setName(event.target.value)
@@ -112,6 +113,22 @@ export default function ManageAccountPage() {
         if (!checkbox) {
             toast.error("Please accept terms and conditions 🚫")
             return;
+        }
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.delete(`${BACKEND_URL}/api/account/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            if (response.status === 200) {
+                toast.success(`Account deleted successfully 🎉`)
+                // redirect to view accounts
+                navigate('/view-accounts')
+            }
+        }
+        catch (error: any) {
+            toast.error("Error deleting account 🚫")
         }
     }
     function checkIfAccountHasBalance() {

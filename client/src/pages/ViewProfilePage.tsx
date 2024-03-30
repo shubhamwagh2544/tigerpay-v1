@@ -44,7 +44,7 @@ export default function ViewProfilePage() {
                 </CardHeader>
                 <Separator />
                 <CardContent>
-                    <div className="mt-10">
+                    <div className="mt-5">
                         <div className="flex justify-between my-2">
                             <span>Firstname</span>
                             <span>{user?.firstname}</span>
@@ -53,11 +53,15 @@ export default function ViewProfilePage() {
                             <span>Lastname</span>
                             <span>{user?.lastname}</span>
                         </div>
-                        <div className="flex justify-between my-2 mb-5">
+                        <div className="flex justify-between my-2 mb-0">
                             <span>Email</span>
                             <span>{user?.email}</span>
                         </div>
-                        <Separator />
+                    </div>
+                </CardContent>
+                <Separator />
+                <CardFooter>
+                    <div className="w-[700px]">
                         <div className="flex justify-between my-2 mt-5">
                             <span>Total Accounts</span>
                             <span>{user?.accounts?.length || 0}</span>
@@ -67,9 +71,6 @@ export default function ViewProfilePage() {
                             <span>{0}</span>
                         </div>
                     </div>
-                </CardContent>
-                <CardFooter>
-                    {/** card footer */}
                 </CardFooter>
             </Card>
         </div >
