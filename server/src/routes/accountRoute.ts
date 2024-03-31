@@ -15,6 +15,6 @@ accountRouter.delete('/:accountId', authMiddleware, deleteAccount)
 
 accountRouter.post('/add-money', authMiddleware, addMoneyToAccount)
 
-accountRouter.post('/verify-payment', verifyPayment)
+accountRouter.post('/verify-payment', authMiddleware, verifyPayment)
 
 export default accountRouter;
