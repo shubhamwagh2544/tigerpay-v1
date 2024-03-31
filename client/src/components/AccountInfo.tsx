@@ -74,6 +74,11 @@ export default function AccountInfo({ user, account }: Props) {
                 const res = await axios.post(`${BACKEND_URL}/api/account/verify-payment`, {
                     paymentId: response.razorpay_payment_id,
                     orderId: response.razorpay_order_id
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                        ContentType: 'application/json'
+                    }
                 });
                 if (res.status === 200) {
                     toast.success('Money added to account successfully 🎉');
