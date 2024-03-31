@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import Razorpay from 'razorpay';
 import Account from '../models/account';
 import User from '../models/user';
 import createAccountNumber from '../utility/createAccountNumber';
@@ -136,9 +137,69 @@ async function deleteAccount(req: Request, res: Response) {
     }
 }
 
+async function addMoneyToAccount(req: Request, res: Response) {
+    try {
+        const razorpay = new Razorpay({
+            key_id: process.env.RAZORPAY_KEY_ID as string,
+            key_secret: process.env.RAZORPAY_KEY_SECRET as string
+        })
+
+        razorpay.orders.create({
+            amount: req.body.amount * 100,
+            currency: 'INR'
+        }, (error, order) => {
+            if (error) {
+                return res.status(500).json({
+                    message: 'Failed to create order'
+                })
+            }
+            return res.status(200).json({
+                order
+            })
+        })
+    }
+    catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            message: 'Failed to add money to account'
+        })
+    }
+}
+
+async function verifyPayment(req: Request, res: Response) {
+    try {
+        const { paymentId, orderId } = req.body
+
+        const razorpay = new Razorpay({
+            key_id: process.env.RAZORPAY_KEY_ID as string,
+            key_secret: process.env.RAZORPAY_KEY_SECRET as string
+        })
+
+        razorpay.payments.fetch(paymentId).then((payment) => {
+            if (payment.status === 'captured') {
+                return res.status(200).json({
+                    message: 'Payment successful'
+                })
+            }
+            return res.status(400).json({
+                message: 'Payment failed'
+            })
+        })
+    }
+    catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            message: 'Failed to verify payment'
+        })
+    }
+
+}
+
 export {
     createAccount, deleteAccount,
     //getUserAccounts,
     getUserAccount,
-    updateAccount
+    updateAccount,
+    addMoneyToAccount,
+    verifyPayment
 };
