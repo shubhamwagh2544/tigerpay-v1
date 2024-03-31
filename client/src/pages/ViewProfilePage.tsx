@@ -31,11 +31,19 @@ export default function ViewProfilePage() {
     }, [])
 
     function getTotalBalance() {
-        let total = 0;
+        let totalINR = 0;
+        let totalUSD = 0;
         user?.accounts?.forEach(account => {
-            total += account.balance
+            // inr
+            if (account.currency === 'inr') {
+                totalINR += account.balance
+            }
+            // usd
+            if (account.currency === 'usd') {
+                totalUSD += account.balance
+            }
         })
-        return total
+        return [totalINR, totalUSD]
     }
 
     if (!user) {
@@ -89,13 +97,19 @@ export default function ViewProfilePage() {
                             <span>Total Accounts</span>
                             <span>{user?.accounts?.length || 0}</span>
                         </div>
-                        <div className="flex justify-between my-2">
-                            <span>Total Balance</span>
-                            <span>{getTotalBalance()}</span>
-                        </div>
-                        <div className="flex justify-between my-2">
+                        <div className="flex justify-between mt-2">
                             <span>Total Transactions</span>
                             <span>{0}</span>
+                        </div>
+                    </div>
+                </CardFooter>
+                <Separator />
+                <CardFooter className="mt-5">
+                    <div className="flex items-center justify-between w-[700px]">
+                        <span>Total Balance</span>
+                        <div className="flex flex-col items-center ">
+                            <span className="text-green-500">{`${getTotalBalance()[0]} ₹ (INR)`}</span>
+                            <span className="text-green-500">{`${getTotalBalance()[1]} $ (USD)`}</span>
                         </div>
                     </div>
                 </CardFooter>

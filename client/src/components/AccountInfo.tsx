@@ -45,7 +45,8 @@ export default function AccountInfo({ user, account }: Props) {
                 return;
             }
             const response = await axios.post(`${BACKEND_URL}/api/account/add-money`, {
-                amount: amount
+                amount: amount,
+                currency: account.currency.toUpperCase()
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -80,7 +81,6 @@ export default function AccountInfo({ user, account }: Props) {
                     account.balance += amount;
                     updateAccount();
                     setAmount(0);
-
                     navigate(`/view-profile`)
 
                     return;
@@ -90,18 +90,24 @@ export default function AccountInfo({ user, account }: Props) {
             prefill: {
                 name: user.firstname + ' ' + user.lastname,
                 email: user.email,
-                contact: '9999999999'
+                contact: '+919999999999'
             },
             notes: {
                 address: 'Razorpay Corporate Office'
             },
             theme: {
                 color: '#3399cc'
-            }
+            },
+            //callback_url: 'https://www.example.com/payment-callback'
         };
         // @ts-ignore
         var rzp1 = new window.Razorpay(options);
         rzp1.open();
+
+        rzp1.on('payment.failed', function () {
+            toast.error('Payment failed 🚫');
+            navigate(`/view-profile`)
+        })
     }
 
     async function updateAccount() {
