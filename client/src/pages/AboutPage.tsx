@@ -33,7 +33,7 @@ export default function AboutPage() {
                     </p>
                     <Button
                         variant="default"
-                        className="py-5 hover:bg-purple-700"
+                        className="py-5 bg-purple-700"
                         onClick={() => navigate("/")}
                     >
                         Go To HomePage

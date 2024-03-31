@@ -28,6 +28,14 @@ export default function Header() {
                                 <Button
                                     variant={"outline"}
                                     onClick={() => {
+                                        navigate("/users")
+                                    }}
+                                >
+                                    Friends
+                                </Button>
+                                <Button
+                                    variant={"outline"}
+                                    onClick={() => {
                                         navigate("/dashboard")
                                     }}
                                 >
@@ -36,7 +44,7 @@ export default function Header() {
                                 <AccountDropdown />
                                 <ProfileDropdown />
                                 <Button
-                                    className="bg-red-500"
+                                    className="hover:bg-red-500"
                                     onClick={() => {
                                         localStorage.removeItem('token')
                                         navigate("/")
@@ -56,7 +64,7 @@ export default function Header() {
                                 About
                             </Button>
                             <Button
-                                className="bg-green-500"
+                                className="hover:bg-green-500 hover:text-black"
                                 onClick={handleLogin}
                             >
                                 Sign In

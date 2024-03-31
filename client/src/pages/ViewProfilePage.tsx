@@ -107,9 +107,9 @@ export default function ViewProfilePage() {
                 <CardFooter className="mt-5">
                     <div className="flex items-center justify-between w-[700px]">
                         <span>Total Balance</span>
-                        <div className="flex flex-col items-center ">
-                            <span className="text-green-500">{`${getTotalBalance()[0]} ₹ (INR)`}</span>
-                            <span className="text-green-500">{`${getTotalBalance()[1]} $ (USD)`}</span>
+                        <div className="flex flex-col items-end">
+                            <span><span className="text-green-500">{getTotalBalance()[0]}</span> ₹</span>
+                            <span><span className="text-green-500">{getTotalBalance()[1]}</span> $</span>
                         </div>
                     </div>
                 </CardFooter>

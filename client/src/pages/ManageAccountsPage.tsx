@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -243,6 +244,24 @@ export default function ManageAccountPage() {
                             <CardDescription>
                                 Make sure you want to delete your account. This action cannot be reversed.
                             </CardDescription>
+                            <HoverCard>
+                                <HoverCardTrigger asChild>
+                                    <Button variant="outline" className="text-orange-600 font-semibold">READ ME</Button>
+                                </HoverCardTrigger>
+                                <HoverCardContent className="w-80">
+                                    <div className="flex justify-between">
+                                        <div className="space-y-1">
+                                            <h4 className="text-sm font-semibold text-orange-600">Warning</h4>
+                                            <p className="text-sm text-yellow-500">
+                                                Account with non-zero balance cannot be deleted.
+                                            </p>
+                                            <p className="text-sm">
+                                                Make sure you transfer all the money to another account before deleting this account.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </HoverCardContent>
+                            </HoverCard>
                         </CardHeader>
                         <CardContent className="space-y-2">
                             <div>
