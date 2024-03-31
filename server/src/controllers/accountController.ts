@@ -146,7 +146,7 @@ async function addMoneyToAccount(req: Request, res: Response) {
 
         razorpay.orders.create({
             amount: req.body.amount * 100,
-            currency: 'INR'
+            currency: req.body.currency as string,
         }, (error, order) => {
             if (error) {
                 return res.status(500).json({
