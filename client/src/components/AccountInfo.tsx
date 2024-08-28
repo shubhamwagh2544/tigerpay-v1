@@ -1,63 +1,75 @@
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import BACKEND_URL from "@/global";
-import { AccountType } from "@/types/AccountType";
-import { UserType } from "@/types/UserType";
-import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Separator } from "./ui/separator";
-import { Textarea } from "./ui/textarea";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import BACKEND_URL from '@/global';
+import { AccountType } from '@/types/AccountType';
+import { UserType } from '@/types/UserType';
+import axios from 'axios';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { Separator } from './ui/separator';
+import { Textarea } from './ui/textarea';
 
 type Props = {
-    account: AccountType
-    user: UserType
-}
+    account: AccountType;
+    user: UserType;
+};
 
 export default function AccountInfo({ user, account }: Props) {
-
-    const creationDate = new Date(account.createdAt).toDateString()
-    const [query, setQuery] = useState<string>('')
-    const navigate = useNavigate()
-    const [amount, setAmount] = useState<number>(0)
+    const creationDate = new Date(account.createdAt).toDateString();
+    const [query, setQuery] = useState<string>('');
+    const navigate = useNavigate();
+    const [amount, setAmount] = useState<number>(0);
 
     function submitQuery(query: string) {
         if (!query) {
-            toast.error('Please write down your query! 🚫')
+            toast.error('Please write down your query! 🚫');
             return;
         }
-        toast.success(`Query submitted 🎉 We will get back to you soon! 🚀`)
+        toast.success(`Query submitted 🎉 We will get back to you soon! 🚀`);
         // Send query to backend
     }
 
     async function handlePayment() {
         if (amount === 0) {
-            toast.error('Please enter amount to add! 🚫')
+            toast.error('Please enter amount to add! 🚫');
             return;
         }
         try {
-            const token = localStorage.getItem('token')
+            const token = localStorage.getItem('token');
             if (!token) {
-                toast.error('Please sign in to add money to account 🚫')
+                toast.error('Please sign in to add money to account 🚫');
                 return;
             }
-            const response = await axios.post(`${BACKEND_URL}/api/account/add-money`, {
-                amount: amount,
-                currency: account.currency.toUpperCase()
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    ContentType: 'application/json'
+            const response = await axios.post(
+                `${BACKEND_URL}/api/account/add-money`,
+                {
+                    amount: amount,
+                    currency: account.currency.toUpperCase(),
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        ContentType: 'application/json',
+                    },
                 }
-            })
-            initPayment(response.data.order)
-        }
-        catch (error) {
-            console.log(error)
-            toast.error('Failed to add money to account 🚫')
+            );
+            initPayment(response.data.order);
+        } catch (error) {
+            console.log(error);
+            toast.error('Failed to add money to account 🚫');
         }
     }
 
@@ -71,22 +83,26 @@ export default function AccountInfo({ user, account }: Props) {
             image: 'https://github.com/shadcn.png',
             order_id: order.id,
             handler: async function (response: any) {
-                const res = await axios.post(`${BACKEND_URL}/api/account/verify-payment`, {
-                    paymentId: response.razorpay_payment_id,
-                    orderId: response.razorpay_order_id
-                }, {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('token')}`,
-                        ContentType: 'application/json'
+                const res = await axios.post(
+                    `${BACKEND_URL}/api/account/verify-payment`,
+                    {
+                        paymentId: response.razorpay_payment_id,
+                        orderId: response.razorpay_order_id,
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('token')}`,
+                            ContentType: 'application/json',
+                        },
                     }
-                });
+                );
                 if (res.status === 200) {
                     toast.success('Money added to account successfully 🎉');
                     // Update account balance
                     account.balance += amount;
                     updateAccount();
                     setAmount(0);
-                    navigate(`/view-profile`)
+                    navigate(`/view-profile`);
 
                     return;
                 }
@@ -95,13 +111,13 @@ export default function AccountInfo({ user, account }: Props) {
             prefill: {
                 name: user.firstname + ' ' + user.lastname,
                 email: user.email,
-                contact: '+919999999999'
+                contact: '+919999999999',
             },
             notes: {
-                address: 'Razorpay Corporate Office'
+                address: 'Razorpay Corporate Office',
             },
             theme: {
-                color: '#3399cc'
+                color: '#3399cc',
             },
             //callback_url: 'https://www.example.com/payment-callback'
         };
@@ -111,8 +127,8 @@ export default function AccountInfo({ user, account }: Props) {
 
         rzp1.on('payment.failed', function () {
             toast.error('Payment failed 🚫');
-            navigate(`/view-profile`)
-        })
+            navigate(`/view-profile`);
+        });
     }
 
     async function updateAccount() {
@@ -126,24 +142,23 @@ export default function AccountInfo({ user, account }: Props) {
             status: account?.status,
             balance: account?.balance,
             createdAt: account?.createdAt,
-            updatedAt: new Date()
-        }
+            updatedAt: new Date(),
+        };
         try {
             const token = localStorage.getItem('token');
             const response = await axios.put(`${BACKEND_URL}/api/account/${account._id}`, newAccount, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
-                }
-            })
-            console.log(response.data)
+                },
+            });
+            console.log(response.data);
             // if (response.status === 200) {
             //     toast.success('Account updated successfully 🎉')
             // }
-        }
-        catch (error) {
+        } catch (error) {
             //toast.error('Failed to update account 😔')
-            console.log(error)
+            console.log(error);
         }
     }
 
@@ -190,10 +205,7 @@ export default function AccountInfo({ user, account }: Props) {
                     className="py-5 w-[300px]"
                     onChange={(e) => setAmount(parseInt(e.target.value))}
                 />
-                <Button
-                    onClick={handlePayment}
-                    className="bg-green-500 hover:bg-green-600 w-[150px] py-5"
-                >
+                <Button onClick={handlePayment} className="bg-green-500 hover:bg-green-600 w-[150px] py-5">
                     Add Money
                 </Button>
             </CardFooter>
@@ -201,10 +213,7 @@ export default function AccountInfo({ user, account }: Props) {
             <CardFooter className="flex items-center justify-between mt-5 gap-5">
                 <AlertDialog>
                     <AlertDialogTrigger asChild>
-                        <Button
-                            variant="secondary"
-                            className="py-5 w-[150px]"
-                        >
+                        <Button variant="secondary" className="py-5 w-[150px]">
                             Report Query
                         </Button>
                     </AlertDialogTrigger>
@@ -212,7 +221,8 @@ export default function AccountInfo({ user, account }: Props) {
                         <AlertDialogHeader>
                             <AlertDialogTitle>Write down your query here...</AlertDialogTitle>
                             <AlertDialogDescription>
-                                This will take some time to process your query. Please be patient. We will get back to you soon.
+                                This will take some time to process your query. Please be patient. We will get back to
+                                you soon.
                             </AlertDialogDescription>
                         </AlertDialogHeader>
                         <Textarea
@@ -221,11 +231,7 @@ export default function AccountInfo({ user, account }: Props) {
                         />
                         <AlertDialogFooter>
                             <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction
-                                onClick={() => submitQuery(query)}
-                            >
-                                Submit Query
-                            </AlertDialogAction>
+                            <AlertDialogAction onClick={() => submitQuery(query)}>Submit Query</AlertDialogAction>
                         </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialog>
@@ -243,5 +249,5 @@ export default function AccountInfo({ user, account }: Props) {
                 </Button>
             </CardFooter>
         </Card>
-    )
+    );
 }

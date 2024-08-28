@@ -1,52 +1,53 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
-import BACKEND_URL from "@/global";
-import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Separator } from '@/components/ui/separator';
+import BACKEND_URL from '@/global';
+import axios from 'axios';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 export default function CreateAccountPage() {
-
-    const [name, setName] = useState<string>('')
-    const [accountType, setAccountType] = useState<string>('')
-    const [currency, setCurrency] = useState<string>('')
-    const navigate = useNavigate()
+    const [name, setName] = useState<string>('');
+    const [accountType, setAccountType] = useState<string>('');
+    const [currency, setCurrency] = useState<string>('');
+    const navigate = useNavigate();
 
     function onSelectName(event: React.ChangeEvent<HTMLInputElement>) {
-        setName(event.target.value)
+        setName(event.target.value);
     }
     function onSelectAccountType(value: string) {
-        setAccountType(value)
+        setAccountType(value);
     }
     function onSelectCurrency(value: string) {
-        setCurrency(value)
+        setCurrency(value);
     }
 
     async function handleCreateAccount() {
         try {
-            const response = await axios.post(`${BACKEND_URL}/api/account`, {
-                name,
-                accountType,
-                currency
-            }, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
-                    'Content-Type': 'application/json',
+            const response = await axios.post(
+                `${BACKEND_URL}/api/account`,
+                {
+                    name,
+                    accountType,
+                    currency,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                        'Content-Type': 'application/json',
+                    },
                 }
-            })
+            );
             if (response.status === 201) {
-                toast.success('Account created successfully 🎉')
+                toast.success('Account created successfully 🎉');
             }
-            navigate('/view-accounts')
-
-        }
-        catch (error) {
-            toast.error('Failed to create account 😔')
+            navigate('/view-accounts');
+        } catch (error) {
+            toast.error('Failed to create account 😔');
         }
     }
 
@@ -63,7 +64,12 @@ export default function CreateAccountPage() {
                         <div className="grid w-full items-center gap-4 space-y-3">
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="name">Name</Label>
-                                <Input id="name" placeholder="Name of your account" onChange={onSelectName} className="py-5" />
+                                <Input
+                                    id="name"
+                                    placeholder="Name of your account"
+                                    onChange={onSelectName}
+                                    className="py-5"
+                                />
                             </div>
                             <div className="flex flex-col space-y-1.5">
                                 <Label htmlFor="account-type">Account</Label>
@@ -103,5 +109,5 @@ export default function CreateAccountPage() {
                 </CardFooter>
             </Card>
         </div>
-    )
+    );
 }

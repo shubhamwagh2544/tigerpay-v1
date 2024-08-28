@@ -1,78 +1,78 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import BACKEND_URL from "@/global";
-import { AccountType } from "@/types/AccountType";
-import { UserType } from "@/types/UserType";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "sonner";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import BACKEND_URL from '@/global';
+import { AccountType } from '@/types/AccountType';
+import { UserType } from '@/types/UserType';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'sonner';
 
 export default function ManageAccountPage() {
     const [user, setUser] = useState<UserType>();
     const [account, setAccount] = useState<AccountType>();
-    const params = useParams()
+    const params = useParams();
     const id = params.id as string;
 
-    const [name, setName] = useState<string>('')
-    const [accountType, setAccountType] = useState<string>('')
-    const [currency, setCurrency] = useState<string>('')
+    const [name, setName] = useState<string>('');
+    const [accountType, setAccountType] = useState<string>('');
+    const [currency, setCurrency] = useState<string>('');
 
-    const [checkbox, setCheckbox] = useState(false)
-    const navigate = useNavigate()
+    const [checkbox, setCheckbox] = useState(false);
+    const navigate = useNavigate();
 
     function onSelectName(event: React.ChangeEvent<HTMLInputElement>) {
-        setName(event.target.value)
+        setName(event.target.value);
     }
     function onSelectAccountType(value: string) {
-        setAccountType(value)
+        setAccountType(value);
     }
     function onSelectCurrency(value: string) {
-        setCurrency(value)
+        setCurrency(value);
     }
 
     useEffect(() => {
         async function fetchUser() {
             const token = localStorage.getItem('token');
             if (!token) {
-                toast.error("Please sign in to view accounts 🚫")
+                toast.error('Please sign in to view accounts 🚫');
                 return;
             }
             const response = await axios.get(`${BACKEND_URL}/api/user/profile`, {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
+                    Authorization: `Bearer ${token}`,
+                },
+            });
             // set user
-            setUser(response.data.user)
+            setUser(response.data.user);
         }
         fetchUser();
-    }, [])
+    }, []);
 
     useEffect(() => {
         async function fetchAccount() {
             const token = localStorage.getItem('token');
             if (!token) {
-                toast.error("Please sign in to view accounts 🚫")
+                toast.error('Please sign in to view accounts 🚫');
                 return;
             }
             const response = await axios.get(`${BACKEND_URL}/api/account/${id}`, {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
+                    Authorization: `Bearer ${token}`,
+                },
+            });
             // set account
-            setAccount(response.data.account)
+            setAccount(response.data.account);
         }
         fetchAccount();
-    }, [id])
+    }, [id]);
 
     if (!user) {
         return (
@@ -85,7 +85,7 @@ export default function ManageAccountPage() {
                     </div>
                 </div>
             </div>
-        )
+        );
     }
     if (!user.accounts || user.accounts?.length === 0) {
         return (
@@ -112,7 +112,7 @@ export default function ManageAccountPage() {
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 
     async function updateAccount() {
@@ -126,47 +126,45 @@ export default function ManageAccountPage() {
             status: account?.status,
             balance: account?.balance,
             createdAt: account?.createdAt,
-            updatedAt: new Date()
-        }
+            updatedAt: new Date(),
+        };
         try {
             const token = localStorage.getItem('token');
             const response = await axios.put(`${BACKEND_URL}/api/account/${id}`, newAccount, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
-                }
-            })
+                },
+            });
             if (response.status === 200) {
-                toast.success('Account updated successfully 🎉')
+                toast.success('Account updated successfully 🎉');
             }
-        }
-        catch (error) {
-            toast.error('Failed to update account 😔')
+        } catch (error) {
+            toast.error('Failed to update account 😔');
         }
     }
     async function deleteAccount() {
         if (!checkbox) {
-            toast.error("Please accept terms and conditions 🚫")
+            toast.error('Please accept terms and conditions 🚫');
             return;
         }
         try {
             const token = localStorage.getItem('token');
             const response = await axios.delete(`${BACKEND_URL}/api/account/${id}`, {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
+                    Authorization: `Bearer ${token}`,
+                },
+            });
             if (response.status === 200) {
-                toast.success(`Account deleted successfully 🎉`)
-                navigate('/view-accounts')
+                toast.success(`Account deleted successfully 🎉`);
+                navigate('/view-accounts');
             }
-        }
-        catch (error: any) {
-            toast.error("Error deleting account 🚫")
+        } catch (error: any) {
+            toast.error('Error deleting account 🚫');
         }
     }
     function checkIfAccountHasBalance() {
-        return account?.balance !== 0
+        return account?.balance !== 0;
     }
 
     return (
@@ -180,7 +178,9 @@ export default function ManageAccountPage() {
                     <Card>
                         <CardHeader>
                             <CardTitle>Update Account</CardTitle>
-                            <CardDescription>Make changes to your account here. Click save when you're done.</CardDescription>
+                            <CardDescription>
+                                Make changes to your account here. Click save when you're done.
+                            </CardDescription>
                         </CardHeader>
                         <CardContent>
                             <form>
@@ -196,10 +196,7 @@ export default function ManageAccountPage() {
                                     </div>
                                     <div className="flex flex-col space-y-1.5">
                                         <Label htmlFor="account-type">Account</Label>
-                                        <Select
-                                            defaultValue={account?.type}
-                                            onValueChange={onSelectAccountType}
-                                        >
+                                        <Select defaultValue={account?.type} onValueChange={onSelectAccountType}>
                                             <SelectTrigger id="account-type">
                                                 <SelectValue placeholder="Select Account Type" />
                                             </SelectTrigger>
@@ -211,10 +208,7 @@ export default function ManageAccountPage() {
                                     </div>
                                     <div className="flex flex-col space-y-1.5">
                                         <Label htmlFor="currency">Currency</Label>
-                                        <Select
-                                            defaultValue={account?.currency}
-                                            onValueChange={onSelectCurrency}
-                                        >
+                                        <Select defaultValue={account?.currency} onValueChange={onSelectCurrency}>
                                             <SelectTrigger id="currency">
                                                 <SelectValue placeholder="Select Currency" />
                                             </SelectTrigger>
@@ -246,7 +240,9 @@ export default function ManageAccountPage() {
                             </CardDescription>
                             <HoverCard>
                                 <HoverCardTrigger asChild>
-                                    <Button variant="outline" className="text-orange-600 font-semibold">READ ME</Button>
+                                    <Button variant="outline" className="text-orange-600 font-semibold">
+                                        READ ME
+                                    </Button>
                                 </HoverCardTrigger>
                                 <HoverCardContent className="w-80">
                                     <div className="flex justify-between">
@@ -256,7 +252,8 @@ export default function ManageAccountPage() {
                                                 Account with non-zero balance cannot be deleted.
                                             </p>
                                             <p className="text-sm">
-                                                Make sure you transfer all the money to another account before deleting this account.
+                                                Make sure you transfer all the money to another account before deleting
+                                                this account.
                                             </p>
                                         </div>
                                     </div>
@@ -269,7 +266,8 @@ export default function ManageAccountPage() {
                                     <Checkbox
                                         id="terms"
                                         onCheckedChange={() => setCheckbox(true)}
-                                        disabled={checkIfAccountHasBalance()} />
+                                        disabled={checkIfAccountHasBalance()}
+                                    />
                                     <Label htmlFor="terms">Accept terms and conditions</Label>
                                 </div>
                             </div>
@@ -287,5 +285,5 @@ export default function ManageAccountPage() {
                 </TabsContent>
             </Tabs>
         </div>
-    )
+    );
 }

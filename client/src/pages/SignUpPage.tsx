@@ -1,15 +1,15 @@
-import axios from "axios";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "sonner";
-import BACKEND_URL from "../global";
+import axios from 'axios';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
+import BACKEND_URL from '../global';
 
 export default function SignUpPage() {
     const [state, setState] = useState({
-        firstname: "",
-        lastname: "",
-        email: "",
-        password: ""
+        firstname: '',
+        lastname: '',
+        email: '',
+        password: '',
     });
     const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ export default function SignUpPage() {
         const { name, value } = event.target;
         setState({
             ...state,
-            [name]: value
+            [name]: value,
         });
     }
 
@@ -25,8 +25,8 @@ export default function SignUpPage() {
         try {
             const response = await axios.post(`${BACKEND_URL}/api/user/signup`, state, {
                 headers: {
-                    "Content-Type": "application/json"
-                }
+                    'Content-Type': 'application/json',
+                },
             });
             if (response.status === 201) {
                 toast.success(`Welcome, ${response.data.user.firstname} ${response.data.user.lastname} 👋`);
@@ -35,14 +35,12 @@ export default function SignUpPage() {
             const { token } = response.data;
             localStorage.setItem('token', token);
 
-            navigate("/view-profile");
-        }
-        catch (error: any) {
+            navigate('/view-profile');
+        } catch (error: any) {
             if (error.response.status === 409) {
-                toast.success("Account already exists! Please sign in ❌");
-            }
-            else {
-                toast.error("Something went wrong ❌");
+                toast.success('Account already exists! Please sign in ❌');
+            } else {
+                toast.error('Something went wrong ❌');
             }
         }
     }
@@ -95,7 +93,10 @@ export default function SignUpPage() {
                 <div className="text-center mt-5">
                     <span className="text-sm">
                         Already Have an Account ?
-                        <Link to="/signin" className="text-purple-700 hover:underline"> Sign In </Link>
+                        <Link to="/signin" className="text-purple-700 hover:underline">
+                            {' '}
+                            Sign In{' '}
+                        </Link>
                     </span>
                 </div>
             </div>

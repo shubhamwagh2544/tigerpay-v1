@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import axios from "axios";
-import BACKEND_URL from "../global.ts";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "sonner";
+import React, { useState } from 'react';
+import axios from 'axios';
+import BACKEND_URL from '../global.ts';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 export default function SignInPage() {
     const [state, setState] = useState({
-        email: "",
-        password: ""
+        email: '',
+        password: '',
     });
     const navigate = useNavigate();
 
@@ -15,8 +15,8 @@ export default function SignInPage() {
         try {
             const response = await axios.post(`${BACKEND_URL}/api/user/signin`, state, {
                 headers: {
-                    "Content-Type": "application/json"
-                }
+                    'Content-Type': 'application/json',
+                },
             });
             if (response.status === 200) {
                 toast.success(`Welcome, ${response.data.user.firstname} ${response.data.user.lastname} 👋`);
@@ -25,17 +25,15 @@ export default function SignInPage() {
             const { token } = response.data;
             localStorage.setItem('token', token);
 
-            navigate("/view-profile");
-        }
-        catch (error: any) {
+            navigate('/view-profile');
+        } catch (error: any) {
             if (error.response.status === 404) {
-                toast.success("Account not found! Please sign up ❌");
+                toast.success('Account not found! Please sign up ❌');
             }
             if (error.response.status === 401) {
-                toast.success("Invalid credentials! Please try again ❌");
-            }
-            else {
-                toast.error("Something went wrong ❌");
+                toast.success('Invalid credentials! Please try again ❌');
+            } else {
+                toast.error('Something went wrong ❌');
             }
         }
     }
@@ -44,7 +42,7 @@ export default function SignInPage() {
         const { name, value } = event.target;
         setState({
             ...state,
-            [name]: value
+            [name]: value,
         });
     }
 
@@ -80,7 +78,10 @@ export default function SignInPage() {
                 <div className="text-center mt-5">
                     <span className="text-sm">
                         Don't Have an Account ?
-                        <Link to="/signup" className="text-purple-700 hover:underline"> Sign Up </Link>
+                        <Link to="/signup" className="text-purple-700 hover:underline">
+                            {' '}
+                            Sign Up{' '}
+                        </Link>
                     </span>
                 </div>
             </div>

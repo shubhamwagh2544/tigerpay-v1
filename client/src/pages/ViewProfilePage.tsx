@@ -1,49 +1,47 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { Skeleton } from "@/components/ui/skeleton";
-import BACKEND_URL from "@/global";
-import { UserType } from "@/types/UserType";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
-
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { Skeleton } from '@/components/ui/skeleton';
+import BACKEND_URL from '@/global';
+import { UserType } from '@/types/UserType';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 export default function ViewProfilePage() {
-
     const [user, setUser] = useState<UserType>();
 
     useEffect(() => {
         async function fetchUser() {
             const token = localStorage.getItem('token');
             if (!token) {
-                toast.error("Please sign in!")
+                toast.error('Please sign in!');
                 return;
             }
             const response = await axios.get(`${BACKEND_URL}/api/user/profile`, {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            setUser(response.data.user)
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setUser(response.data.user);
         }
         fetchUser();
-    }, [])
+    }, []);
 
     function getTotalBalance() {
         let totalINR = 0;
         let totalUSD = 0;
-        user?.accounts?.forEach(account => {
+        user?.accounts?.forEach((account) => {
             // inr
             if (account.currency === 'inr') {
-                totalINR += account.balance
+                totalINR += account.balance;
             }
             // usd
             if (account.currency === 'usd') {
-                totalUSD += account.balance
+                totalUSD += account.balance;
             }
-        })
-        return [totalINR, totalUSD]
+        });
+        return [totalINR, totalUSD];
     }
 
     if (!user) {
@@ -57,7 +55,7 @@ export default function ViewProfilePage() {
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 
     return (
@@ -108,12 +106,16 @@ export default function ViewProfilePage() {
                     <div className="flex items-center justify-between w-[700px]">
                         <span>Total Balance</span>
                         <div className="flex flex-col items-end">
-                            <span><span className="text-green-500">{getTotalBalance()[0]}</span> ₹</span>
-                            <span><span className="text-green-500">{getTotalBalance()[1]}</span> $</span>
+                            <span>
+                                <span className="text-green-500">{getTotalBalance()[0]}</span> ₹
+                            </span>
+                            <span>
+                                <span className="text-green-500">{getTotalBalance()[1]}</span> $
+                            </span>
                         </div>
                     </div>
                 </CardFooter>
             </Card>
-        </div >
-    )
+        </div>
+    );
 }

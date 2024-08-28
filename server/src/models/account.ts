@@ -3,11 +3,11 @@ import mongoose from 'mongoose';
 const accountSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
     },
     accountName: {
         type: String,
-        required: true
+        required: true,
     },
     accountNumber: {
         type: String,
@@ -24,32 +24,32 @@ const accountSchema = new mongoose.Schema({
     type: {
         type: String,
         required: true,
-        enum: ['savings', 'current']
+        enum: ['savings', 'current'],
     },
     balance: {
         type: Number,
-        default: 0
+        default: 0,
     },
     currency: {
         type: String,
         required: true,
-        enum: ['usd', 'inr']
+        enum: ['usd', 'inr'],
     },
     status: {
         type: String,
         required: true,
-        enum: ['active', 'inactive']
+        enum: ['active', 'inactive'],
     },
     createdAt: {
         type: Date,
-        default: Date.now
+        default: Date.now,
     },
     updatedAt: {
         type: Date,
-        default: Date.now
+        default: Date.now,
     },
     // transactions
-})
+});
 
 const Account = mongoose.model('Account', accountSchema);
 

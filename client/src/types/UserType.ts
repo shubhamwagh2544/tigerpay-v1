@@ -1,4 +1,4 @@
-import { AccountType } from "./AccountType";
+import { AccountType } from './AccountType';
 
 export type UserType = {
     _id: string;
@@ -6,5 +6,5 @@ export type UserType = {
     lastname: string;
     email: string;
     password: string;
-    accounts?: AccountType[]
-}
+    accounts?: AccountType[];
+};

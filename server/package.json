@@ -4,9 +4,10 @@
   "description": "",
   "main": "./src/index.ts",
   "scripts": {
-    "dev": "nodemon src/index.ts",
+    "dev": "npx tsc -b && nodemon src/index.ts",
     "build": "npm install && npx tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "format": "prettier --write \"src/**/*.ts\""
   },
   "keywords": [],
   "author": "",

@@ -1,7 +1,3 @@
 export default function UsersPage() {
-    return (
-        <div>
-            Users Page...
-        </div>
-    )
+    return <div>Users Page...</div>;
 }

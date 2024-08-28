@@ -9,4 +9,4 @@ export type AccountType = {
     balance: number;
     createdAt: Date;
     updatedAt: Date;
-}
+};
